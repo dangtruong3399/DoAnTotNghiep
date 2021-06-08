@@ -1,0 +1,8 @@
+﻿@using WebAppDoDungTreEm.Models;
+@model List<LoaiSanPham>
+
+@foreach (var item in Model)
+{
+    <li class="dropdown-item"><a style="letter-spacing:1px" href="@Url.Action("HienThiSanPhamTheoLoai", new {ml = item.MaLoai })">@item.TenLoai</a></li>
+}
+

@@ -1,0 +1,53 @@
+﻿@using WebAppDoDungTreEm.Models
+@model List<ThongKe>
+@{
+    ViewBag.Title = "ThongKe";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<div class="container mt-5">
+    <h2 style="text-align: center">Thống kê</h2>
+    <form action="@Url.Action("XLThongKe")" method="post">
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Thống kê theo tháng năm:</h4></label>
+
+            <label>Tháng: </label>
+            <input style="height:30px; width:50px" type="number" max="12" min="1" value="1" name="thang" />
+
+            <label>Năm: </label>
+            <input style="height:30px; width:70px" type="number" value="2021" min="1990" name="nam" />
+            <button class="btn btn-dark mt-5" type="submit">Submit</button>
+        </div>
+
+        @*<a href="@Url.Action("ThongKe","Admin")" class="btn btn-dark mt-5"><i class="fas fa-shopping-cart"></i> Tiếp tục mua hàng</a>*@
+    </form>
+    <table class="table table-bordered">
+        <tr class="thead-light">
+            <th>Mã Đơn</th>
+            <th>Số lượng</th>
+            <th>Ngày đặt</th>
+            <th>Ngày giao</th>
+            <th>Thành tiền</th>
+        </tr>
+   
+            
+
+          
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>@item.MaDH</td>
+            <td>@item.Soluong</td>
+            <td>@item.NgayDatHang</td>
+            <td>@item.NgayGiao</td>
+            <td>@string.Format("{0:0,0}", item.ThanhTien) vnd</td>
+        </tr>
+            }
+                
+            
+
+    </table>
+</div>
+

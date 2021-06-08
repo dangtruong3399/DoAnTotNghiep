@@ -1,0 +1,59 @@
+﻿@using WebAppDoDungTreEm.Models;
+@model List<DonHang>
+@{
+    ViewBag.Title = "DonHang";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<h4><b><i class="fas fa-book"></i>Đơn hàng</b></h4>
+@if (TempData["message2"] != "")
+{
+    <span style="color:red">@TempData["message2"] !</span>
+
+}
+<table class="table table-bordered">
+    <tr class="thead-light">
+        @*<th>Chi Tiết Đơn hàng</th>*@
+        <th>Mã Đơn</th>
+        <th>Người mua</th>
+        <th>Ngày đặt</th>
+        <th>Ngày giao</th>
+        <th>Thanh toán</th>
+        <th>Giao hàng</th>
+        <th>Sửa</th>
+        <th>Xóa</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td><a href="@Url.Action("ChiTietDonHang","Admin",new { madh = item.MaDH})"></a></td>*@
+            <td>@item.MaDH</td>
+            <td>@item.UserName</td>
+            <td>@item.NgayDatHang</td>
+            <td>@item.NgayGiao</td>
+            @if (@item.DaThanhToan == 1)
+            {
+                <td> Đã thanh toán</td>
+            }
+            else
+            {
+                <td> Chưa thanh toán</td>
+            }
+            @if (@item.TinhTrangGiaoHang == 1)
+            {
+                <td> Đã giao thành công</td>
+            }
+            else
+            {
+                <td> Đang giao</td>
+            }
+            <td>
+                <a href="@Url.Action("SuaDonHang","Admin",new {donhang= item.MaDH })"><i class="fas fa-edit fa-2x"></i></a>
+            </td>
+            <td>
+                <a onclick="return Delete()" href="@Url.Action("XoaDonHang","Admin",new { dh= item.MaDH })"><i class="fas fa-trash fa-2x"></i></a>
+            </td>
+        </tr>
+    }
+</table>

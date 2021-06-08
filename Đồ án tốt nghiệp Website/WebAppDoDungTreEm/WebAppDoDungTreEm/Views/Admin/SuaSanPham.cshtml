@@ -1,0 +1,66 @@
+﻿@model WebAppDoDungTreEm.Models.SanPham
+@{
+    ViewBag.Title = "SuaSanPham";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+
+<div class="container mt-5">
+    <h2 style="text-align: center">CHỈNH SỬA SẢN PHẨM</h2>
+    <form action="@Url.Action("XLSuaSanPham","admin")" method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(m => m.LoaiSanPham)
+        @Html.HiddenFor(m => m.MaLoai)
+        @Html.HiddenFor(m => m.MaSP)
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Tên sản phẩm:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="TenSP" value="@Model.TenSP" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Đơn vị tính:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="DonViTinh" value="@Model.DonViTinh" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Giá bán:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="number" name="GiaBan" value="@Model.GiaBan" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Giá nhập:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="number" name="GiaNhap" value="@Model.GiaNhap" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Hình ảnh:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="file" name="fileupload" />
+                <input type="hidden" name="fileupload" value="@Model.HinhAnh" />
+                <img src="~/Content/SanPham/@Model.HinhAnh" width="50px" />
+                <a style="color:red;">@ViewBag.Thongbao</a>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Mô tả:</h4></label>
+            <div class="col-sm-9">
+                <textarea name="MoTa">@Model.MoTa</textarea>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Thuộc loại:</h4></label>
+            @Html.DropDownList("Loais")
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-5"><button type="submit" class="btn btn-dark"><i class="fas fa-user-plus"></i>Save</button></div>
+        </div>
+    </form>
+</div>
+
+
+

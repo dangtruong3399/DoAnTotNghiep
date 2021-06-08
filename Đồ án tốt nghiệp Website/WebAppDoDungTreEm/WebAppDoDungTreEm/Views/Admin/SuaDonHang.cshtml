@@ -1,0 +1,68 @@
+﻿@model WebAppDoDungTreEm.Models.DonHang
+
+@{
+    ViewBag.Title = "SuaDonHang";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<div class="container mt-5">
+    <h2 style="text-align: center">Cập nhật đơn hàng</h2>
+    <form action="@Url.Action("XLSuaDonHang")" method="post">
+        @Html.HiddenFor(m => m.MaDH)
+        @Html.HiddenFor(m => m.NgayDatHang)
+        @Html.HiddenFor(m => m.NgayGiao)
+        @Html.HiddenFor(m => m.UserName)
+        @Html.HiddenFor(m => m.PhuongThucThanhToan)
+        @*<div class="row form-group">
+            <label class="col-sm-3"><h4>Username:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="Username" value="@Model.UserName" readonly />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Ngày đặt hàng:</h4></label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="hoten" value="@Model.NgayGiao" />
+            </div>
+        </div>*@
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Thanh toán:</h4></label>
+            <div class="col-sm-9">
+                <select name="dathanhtoan">
+                    @if (Model.DaThanhToan == 1)
+                    {
+                        <option value="1">Đã thanh toán</option>
+                        <option value="0" selected>Chưa thanh toán</option>
+                    }
+                    else
+                    {
+                        <option value="0">Chưa thanh toán</option>
+                        <option value="1" selected>Đã thanh toán</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-3"><h4>Tình trạng giao hàng:</h4></label>
+            <div class="col-sm-9">
+                <select name="tinhtranggiaohang">
+                    @if (Model.TinhTrangGiaoHang == 1)
+                    {
+                        <option value="1">Đã giao</option>
+                        <option value="0" selected>Đang giao</option>
+                    }
+                    else
+                    {
+                        <option value="0">Đang giao</option>
+                        <option value="1" selected>Đã giao</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-5"><button type="submit" class="btn btn-dark"><i class="fas fa-user-plus"></i> Lưu</button></div>
+        </div>
+    </form>
+</div>
+

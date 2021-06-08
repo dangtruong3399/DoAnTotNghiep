@@ -1,0 +1,130 @@
+﻿@using WebAppDoDungTreEm.Models;
+@model List<GioHang>
+@{
+    ViewBag.Title = "Xemgiohang";
+}
+
+<div class="container mt-5">
+
+    <h2>GIỎ HÀNG</h2>
+    @if (TempData["message"] != "")
+    {
+        <span style="color:red">@TempData["message"] !</span>
+
+    }
+    <hr />
+    <form action="@Url.Action("ThongTinDatHang","GioHang")" method="post">
+        <table class="table">
+            <tr class="thead-light">
+                <th class="pl-5">Sản phẩm</th>
+                <th class="pl-5">Giá</th>
+                <th class="pl-4">Số lượng</th>
+                <th class="pl-5">Thành tiền</th>
+                <th class="pl-4">Xóa khỏi giỏ</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Content/SanPham/@item.Hinh" width="100px" />
+                        <b>@item.TenSP</b>
+                        <br />
+                    </td>
+                    <td class="p-5">@string.Format("{0:0,0}", item.Gia)</td>
+                    <td class="p-5">
+                        <div class="buttons_added">
+                            <input type="hidden" value="@item.MaSP" name="MaSP" />
+                            <input class="minus is-form" type="button" onclick="decNumber(@item.MaSP, @item.Gia);" value="-">
+                            <input aria-label="quantity" class="input-qty" style="width:20px" id="@item.MaSP" maxlength="2" type="text" name="SoLuong" value="1" onblur="setDefault(@item.MaSP, @item.Gia);" oninput="checkNumber(@item.MaSP, @item.Gia)">
+                            <input class="plus is-form" type="button" onclick="incNumber(@item.MaSP, @item.Gia);" value="+">
+                            <script type="text/javascript">
+
+                                function incNumber(element, gia) {
+
+                                    var inc = element.value;
+                                    if (inc < 99)
+                                        inc++;
+                                    element.value = inc;
+
+                                    document.getElementById("quantity'" + element.id).innerHTML = (gia * inc).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,").concat(" đ");
+
+                                    this.tongTien();
+                                }
+
+                                function decNumber(element, gia) {
+
+                                    var dec = element.value;
+                                    if (dec > 1)
+                                        dec--;
+                                    element.value = dec;
+
+                                    document.getElementById("quantity'" + element.id).innerHTML = (gia * dec).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,").concat(" đ");
+
+                                    this.tongTien();
+                                }
+
+                                function checkNumber(element, gia) {
+                                    element.value = element.value.replace(/[^0-9]/g, '');
+
+                                    if (!isNaN(element.value)) {
+                                        document.getElementById("quantity'" + element.id).innerHTML = (gia * element.value).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,").concat(" đ");
+                                    }
+                                    else {
+                                        document.getElementById("quantity'" + element.id).innerHTML = "0";
+                                    }
+                                    this.tongTien();
+                                }
+
+                                function setDefault(element, gia) {
+                                    if (element.value == "") {
+                                        element.value = 1;
+                                        document.getElementById("quantity'" + element.id).innerHTML = (gia * element.value).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,").concat(" đ");
+                                        this.tongTien();
+                                    }
+                                }
+
+                                function tongTien() {
+                                    var tongTien = 0;
+                                    var arrayTongTien = document.getElementsByClassName("tongTien");
+
+                                    for (var i = 0; i < arrayTongTien.length; i++) {
+                                        tongTien += Number(arrayTongTien[i].innerText.replaceAll(",", "").replace("đ", ""));
+                                    }
+
+                                    document.getElementsByClassName("Tong")[0].innerHTML = "Tổng cộng: " + tongTien.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,").concat(" đ");
+                                }
+
+                            </script>
+                        </div>
+                    </td>
+                    <td class="p-5 tongTien" id="quantity'@item.MaSP">@string.Format("{0:0,0}", item.Gia * item.Soluong) đ</td>
+                    <td class="p-5">
+                        <a onclick="return confirmation()" href="@Url.Action("Xoa1SPKhoiGio", "GioHang", new { msp = item.MaSP })"><i class="fas fa-trash fa-2x"></i></a>
+                    </td>
+                </tr>
+            }
+            <tr style="text-align:right;">
+                <td colspan="5">
+                    <h5 style="color:brown;" class="Tong">Tổng cộng: @string.Format("{0:0,0}", ViewBag.tongtien) đ</h5>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center; color:white;">
+                    <button class="btn btn-dark" type="submit"><i class="fas fa-shopping-bag"></i> Đặt Hàng</button>
+                </td>
+                <td colspan="2" style="text-align:center; color:white;">
+                    <a class="btn btn-dark" href="@Url.Action("XoaAllGioHang","GioHang")" onclick="return DeleteAll()"><i class="fas fa-trash-restore-alt"></i> Xóa Giỏ Hàng</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function confirmation() {
+        return confirm('Xóa sản phẩm này ra khỏi giỏ?');
+    }
+    function DeleteAll() {
+        return confirm('Xóa tất cả sản phẩm trong giỏ?');
+    }
+</script>

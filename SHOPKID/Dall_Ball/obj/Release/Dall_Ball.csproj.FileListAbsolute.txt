@@ -1,0 +1,7 @@
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\bin\Release\Dall_Ball.dll.config
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\bin\Release\Dall_Ball.dll
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\bin\Release\Dall_Ball.pdb
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\obj\Release\Dall_Ball.csproj.CoreCompileInputs.cache
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\obj\Release\Dall_Ball.dll
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\obj\Release\Dall_Ball.pdb
+E:\DoAnTotNghiep\SHOPKID\Dall_Ball\obj\Release\Dall_Ball.csprojAssemblyReference.cache
